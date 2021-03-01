@@ -14,15 +14,15 @@ class CartBloc{
 
   factory CartBloc(){
     if(_cartBloc == null)
-      _cartBloc = new CartBloc._();
+      _cartBloc =  CartBloc._();
 
     return _cartBloc;
   }
 
   CartBloc._(){
-    _currentCart = new Cart();
-    _publishSubjectCart = new PublishSubject<Cart>();
-    _publishSubjectOrder = new PublishSubject<Order>();
+    _currentCart =  Cart();
+    _publishSubjectCart =  PublishSubject<Cart>();
+    _publishSubjectOrder =  PublishSubject<Order>();
   }
 
   Observable<Cart> get observableCart => _publishSubjectCart.stream;
@@ -37,8 +37,31 @@ class CartBloc{
   }
 
   void addOrderToCart(Product product, int quantity){
-    _lastOrder = new Order(product, quantity, _orderId++);
-    _currentCart.addOrder(_lastOrder);
+    _lastOrder =  Order(product, quantity, _orderId++);
+    int index=-1;
+    int i=0;
+    for (Order o in _currentCart.orders) {
+      if (o.product.id == product.id) {
+        index = i;
+        break;
+      }
+      i++;
+    }
+
+    if (index==-1) {
+      _currentCart.addOrder(_lastOrder);
+    }
+    else
+      {
+        if (quantity>0) {
+          _currentCart.orders[index].setQuantity(
+              quantity);
+        }
+        else
+          {
+            _currentCart.removeOrder(_currentCart.orders[index]);
+          }
+      }
     _updateLastOrder();
     _updateCart();
   }

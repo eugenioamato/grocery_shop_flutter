@@ -11,6 +11,8 @@ class Order {
   int get id => _id;
 
   int get quantity => _quantity;
+  void setQuantity(int quant) =>_quantity=quant;
+
 
   Product get product => _product;
 

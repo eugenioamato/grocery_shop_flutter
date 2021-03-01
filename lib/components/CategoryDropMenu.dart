@@ -1,25 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:grocery_shop_flutter/models/CategoryHelper.dart';
 
 class CategoryDropMenu extends StatefulWidget {
+  final CategoryHelper categoryHelper;
+  final Function refreshElements;
+  final List<String> categories;
+
+  const CategoryDropMenu(this.categoryHelper, this.refreshElements, this.categories);
   @override
-  _CategoryDropMenu createState() => new _CategoryDropMenu();
+  _CategoryDropMenu createState() =>  _CategoryDropMenu();
 }
+
+
 
 class _CategoryDropMenu extends State<CategoryDropMenu> {
 
-  String dropdownValue = "Pasta & Noodles";
+
 
   @override
   Widget build(BuildContext context){
-    return new DropdownButtonHideUnderline(child:
-      new DropdownButton<String>(
-        value: dropdownValue,
+    return  DropdownButtonHideUnderline(child:
+       DropdownButton<String>(
+        value: widget.categoryHelper.getCategory(),
         onChanged: (String newValue) {
           setState(() {
-            dropdownValue = newValue;
-          });
+            widget.categoryHelper.setCategory(newValue);
+            });
+          widget.refreshElements();
         },
-        items: <String>['Pasta & Noodles'].map<DropdownMenuItem<String>>((String value) {
+        items: widget.categories.map<DropdownMenuItem<String>>((String value) {
           return DropdownMenuItem<String>(
             value: value,
             child: Text(value, style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20)),

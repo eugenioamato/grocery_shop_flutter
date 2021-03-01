@@ -7,23 +7,26 @@ class OrderWidget extends StatelessWidget {
   final double _gridSize;
   OrderWidget(this._order, this._gridSize);
 
+
+  get currencyString => "€";
+
   @override
   Widget build(BuildContext context) {
-    return new Row(crossAxisAlignment: CrossAxisAlignment.center, mainAxisAlignment: MainAxisAlignment.spaceBetween, children: <Widget>[
-      new ClipOval(child:
-        new Container(color: Colors.white, child: new Image.asset(this._order.product.urlToImage), height:  (MediaQuery.of(context).size.height - _gridSize)* 0.5)
+    return  Row(crossAxisAlignment: CrossAxisAlignment.center, mainAxisAlignment: MainAxisAlignment.spaceBetween, children: <Widget>[
+       ClipOval(child:
+         Container(color: Colors.white, child:  Image.asset(this._order.product.urlToImage), height:  (MediaQuery.of(context).size.height - _gridSize)* 0.5)
       ),
-      new Padding(padding: EdgeInsets.symmetric(horizontal: 10), child:
-        new Text(this._order.quantity.toString(), style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))
+       Padding(padding: EdgeInsets.symmetric(horizontal: 10), child:
+         Text(this._order.quantity.toString(), style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))
       ),
-      new Text("x", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-      new Flexible(flex: 2, child:
-        new Padding(padding: EdgeInsets.symmetric(horizontal: 10), child:
-          new Text(this._order.product.title, style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))
+       Text("x", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+       Flexible(flex: 2, child:
+         Padding(padding: EdgeInsets.symmetric(horizontal: 10), child:
+           Text(this._order.product.title, style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))
         )
       ),
-      new Flexible(flex: 1, child:
-        new Text("\$${this._order.orderPrice.toStringAsFixed(2)}", style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold))
+       Flexible(flex: 1, child:
+         Text("$currencyString${this._order.orderPrice.toStringAsFixed(2)}", style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold))
       )
     ]);
   }

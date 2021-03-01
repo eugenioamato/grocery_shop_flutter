@@ -5,12 +5,12 @@ class Product {
   String _title;
   double _price;
   double _weight;
+  String _category;
   int _id;
 
 
-  Product(this._urlToImage, this._title, this._price, this._weight, this._id){
-    _about = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.";
-  }
+  Product(this._urlToImage, this._title, this._price, this._weight, this._category,this._about,this._id);
+
 
   double get weight => _weight;
 
@@ -19,6 +19,8 @@ class Product {
   String get title => _title;
 
   String get urlToImage => _urlToImage;
+
+  String get category =>_category;
 
   int get id => _id;
 
